@@ -42,6 +42,7 @@ public class Main {
 				System.out.println("잘못된 입력입니다");
 			}
 		}
+		System.out.println();
 		
 		switch(option) {
 		case 1:

@@ -4,11 +4,26 @@ import java.time.LocalDate;
 
 public class Expenditure {
 	private String expenditureName;
-	private String category;
 	private int expenditure;
-	private LocalDate expenditureDate;
+	protected LocalDate expenditureDate;
+	Category category;
 	
-	public Expenditure(String expenditureName, String category, int expenditure, LocalDate date) {
+	public enum Category{
+		FOOD("외식"), SNACK("커피, 간식"), SHOPPING("쇼핑"), EDUCATION("교육"), 
+			TRANSFER("이체"), BEAUTY("미용");
+		
+		private final String categoryName;
+		
+		Category(String categoryName){
+			this.categoryName = categoryName;
+		}
+		
+		public static String getDisplayName(Category category) {
+			return category.categoryName;
+		}
+	}
+	
+	public Expenditure(String expenditureName, Category category, int expenditure, LocalDate date) {
 		this.expenditureName = expenditureName;
 		this.category = category;
 		this.expenditure = expenditure;
@@ -19,7 +34,7 @@ public class Expenditure {
 		return expenditureName;
 	}
 	
-	public String getCategory() {
+	public Category getCategory() {
 		return category;
 	}
 	
@@ -32,6 +47,6 @@ public class Expenditure {
 	}
 	
 	public String showInfo() {
-		return expenditureName + " | 분류: " + category + " | 지출 금액: " + expenditure + " | 지출 날짜: " + expenditureDate;
+		return this.getExpenditureName() + " | " + this.getExpenditure() + " | " + this.getExpenditureDate();
 	}
 }
