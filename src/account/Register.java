@@ -8,12 +8,28 @@ public class Register {
 	String email;
 	String phoneNumber;
 	String studentID;
+	String bankAccount;
 	public String major;
 	public String nickname;
 	public UserType userType;
+	BankType bankType;
 	
 	public enum UserType {
 		COLLEGE, GRADUATE
+	}
+	
+	public enum BankType {
+		NH("농협은행"), IBK("기업은행"), KB("국민은행"), MG("새마을금고"), SC("제일은행"), KAKAO("카카오뱅크");
+		
+		private final String displayName;
+		
+		BankType(String displayName){
+			this.displayName = displayName;
+		}
+		
+		public static String getDisplayName(BankType bankType) {
+			return bankType.displayName;
+		}
 	}
 	
 	public String getID(Scanner sc) {
@@ -91,6 +107,52 @@ public class Register {
 		return nickname;
 	}
 	
+	public String getBankAccount(Scanner sc) {
+		System.out.println("계좌 입력");
+		System.out.println("인증서 발급을 위해 보유하신 계좌로 1원 이체를 진행합니다");
+		System.out.print("계좌번호: ");
+		bankAccount = sc.nextLine();
+		System.out.println("------------------------------------");
+		return bankAccount;
+	}
+	
+	public BankType getBankType(Scanner sc) {
+		int option;
+		
+		System.out.println("은행 선택");
+		System.out.println("1. 농협");
+		System.out.println("2. 기업은행");
+		System.out.println("3. kb국민");
+		System.out.println("4. 새마을 금고");
+		System.out.println("5. 제일은행");
+		System.out.println("6. 카카오뱅크");
+		System.out.print(">> ");
+		option = sc.nextInt();
+		sc.nextLine();
+		
+		switch(option) {
+		case 1:
+			bankType = BankType.NH;
+			break;
+		case 2:
+			bankType = BankType.IBK;
+			break;
+		case 3:
+			bankType = BankType.KB;
+			break;
+		case 4:
+			bankType = BankType.MG;
+			break;
+		case 5:
+			bankType = BankType.SC;
+			break;
+		case 6:
+			bankType = BankType.KAKAO;
+			break;
+		}
+		return bankType;
+	}
+	
 	public void getRegister(Scanner sc) {
 		System.out.println("회원가입을 시작합니다.");
 		getID(sc);
@@ -103,5 +165,8 @@ public class Register {
 		getNickname(sc);
 		System.out.println("회원가입이 완료되었습니다.");
 		System.out.println("==================================");
+		
+		getBankAccount(sc);
+		getBankType(sc);
 	}
 }

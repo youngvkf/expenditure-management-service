@@ -1,13 +1,14 @@
 package homeScreen;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ExpenditureManagement {
-	int totalProperty = 1000000;
-	int totalExpenditure = 585000;
-	int monthlyExpenditure;
+	int totalProperty = 258457;
+	int totalExpenditure = 257948;
+	int accountProperty = 257948;
 	
 	ArrayList <Expenditure> expenditureList;
 	
@@ -16,37 +17,54 @@ public class ExpenditureManagement {
 		expenditureList = new ArrayList <Expenditure>();
 		
 		expenditureList.add(new Expenditure("외식", "식비", 20000, LocalDate.parse("2025-06-05")));
-		expenditureList.add(new Expenditure("월세", "월세", 500000, LocalDate.parse("2025-06-15")));
-		expenditureList.add(new Expenditure("공과금", "월세", 20000, LocalDate.parse("2025-06-10")));
-		expenditureList.add(new Expenditure("책", "자기계발", 18000, LocalDate.parse("2025-06-02")));
-		expenditureList.add(new Expenditure("배달음식", "식비", 20000, LocalDate.parse("2025-06-22")));
-		expenditureList.add(new Expenditure("세제", "생필품", 7000, LocalDate.parse("2025-06-12")));
+		expenditureList.add(new Expenditure("월세", "커피, 간식", 500000, LocalDate.parse("2025-06-15")));
+		expenditureList.add(new Expenditure("공과금", "쇼핑", 20000, LocalDate.parse("2025-06-10")));
+		expenditureList.add(new Expenditure("책", "교육", 18000, LocalDate.parse("2025-06-02")));
+		expenditureList.add(new Expenditure("배달음식", "이체", 20000, LocalDate.parse("2025-06-22")));
+		expenditureList.add(new Expenditure("세제", "미용", 7000, LocalDate.parse("2025-06-12")));
 	}
 	
-	public void showFinanceRecord() {
+	public void showMonthlyExpenditure() {
+		int monthlyExpenditure = getMonthlyExpenditure(LocalDate.now());
+		int preMonthlyExpenditure = getMonthlyExpenditure(LocalDate.now().minusMonths(1));
+		int difference = Math.abs(preMonthlyExpenditure - monthlyExpenditure);
 		
-		System.out.println("==========================================");
-		System.out.println("월별 총 지출 현황: " + getMonthlyExpenditure());
-		System.out.println("-----------------------------------------");
-		
-		System.out.println("당신의 총 자산: " + totalProperty);
-		System.out.println("당신의 총 지출: " + totalExpenditure);
-		
+		if (monthlyExpenditure > preMonthlyExpenditure) {
+			System.out.println("지난 달 같은 기간보다 " + difference + "원 더 썼어요");
+		}
+		else
+			System.out.println("지난 달 같은 기간보다 " + difference + "원 덜 썼어요");
+	}
+	
+	public void showAccountExpenditure() {
+		System.out.println("입출금 계좌");
+		System.out.println(accountProperty + "원");
+		System.out.println("토스뱅크 통장");
+	}
+	
+	public void showExpenditureGraph() {
 		for (Expenditure e : expenditureList) {
 			if (e != null) {
 				System.out.println(e.showInfo());
 			}
 		}
+	}
+	
+	public void showTotalProperty() {
 		
-		System.out.println("==========================================");
+		System.out.println("순자산");
+		System.out.println(totalProperty + "원");
+		System.out.println("당신의 총 지출: " + totalExpenditure);
+		
 	}
 	
 	public void showExpenditureScreen(Scanner sc) {
-		showFinanceRecord();
+		showMonthlyExpenditure();
+		showTotalProperty();
 		String yesOrNo;
 		
 		while(true) {
-			System.out.println("가계부를 기입하겠습니까? (y/n): ");
+			System.out.println("지출이 있습니까? (y/n): ");
 			yesOrNo = sc.nextLine();
 			
 			if (yesOrNo.equalsIgnoreCase("Y")) {
@@ -76,7 +94,8 @@ public class ExpenditureManagement {
 		
 		updateTotalExpenditure(expenditure);
 		updateTotalProperty(expenditure);
-		showFinanceRecord();
+		showMonthlyExpenditure();
+		showTotalProperty();
 	}
 	
 	public void updateTotalExpenditure(int newExpenditure) {
@@ -87,15 +106,15 @@ public class ExpenditureManagement {
 		totalProperty -= newExpenditure;
 	}
 	
-	public int getMonthlyExpenditure() {
-		monthlyExpenditure = 0;
-		LocalDate currentDate = LocalDate.now();
+	public int getMonthlyExpenditure(LocalDate date) {
+		int monthlyExpenditure = 0;
 		
 		for (Expenditure e : expenditureList) {
-			if(e.getExpenditureDate().getMonthValue() == currentDate.getMonthValue())
+			if(e.getExpenditureDate().getMonthValue() == date.getMonthValue())
 				monthlyExpenditure += e.getExpenditure();
 		}
 		
 		return monthlyExpenditure;
 	}
+
 }
