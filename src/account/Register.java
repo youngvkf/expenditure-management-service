@@ -1,23 +1,17 @@
 package account;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
-
+// 수정사항: 필요없는 사용자 정보, 메소드 없애기
 public class Register {
-	String ID;
-	String password;
-	String email;
-	String phoneNumber;
-	String studentID;
-	String bankAccount;
-	public String major;
-	public String nickname;
-	public UserType userType;
-	BankType bankType;
-	
-	public enum UserType {
-		COLLEGE, GRADUATE
-	}
-	
+	private String phoneNumber;  // 전화번호
+	private String residentNumber;  // 주민번호
+	private String bankAccount;  // 은행 계좌번호
+	public String nickname;  // 사용자 이름
+	public String schoolName; // 학교 이름
+	public String address; // 거주지역
+	private BankType bankType; // 은행
+	// 은행
 	public enum BankType {
 		NH("농협은행"), IBK("기업은행"), KB("국민은행"), MG("새마을금고"), SC("제일은행"), KAKAO("카카오뱅크");
 		
@@ -26,98 +20,47 @@ public class Register {
 		BankType(String displayName){
 			this.displayName = displayName;
 		}
-		
+		// 은행 이름 보여주기
 		public static String getDisplayName(BankType bankType) {
 			return bankType.displayName;
 		}
 	}
-	
-	public String getID(Scanner sc) {
-		System.out.print("아이디: ");
-		ID = sc.nextLine();
-		return ID;
-	}
-	
-	public String getPassword(Scanner sc) {
-		System.out.print("비밀번호: ");
-		password = sc.nextLine();
-		return password;
-	}
-	
-	public void confirmPassword(Scanner sc) {
-		String confirmPW;
-		while(true) {
-			System.out.print("비밀번호 확인: ");
-			confirmPW = sc.nextLine();
-			if (!password.equals(confirmPW)) {
-				System.out.println("비밀번호가 일치하지 않습니다.\n");
-			}
-			else
-				break;
-		}
-	}
-	
-	public String getEmail(Scanner sc) {
-		System.out.print("이메일: ");
-		email = sc.nextLine();
-		return email;
-	}
-	
+	// 휴대폰 번호 입력받기
 	public String getPhoneNumber(Scanner sc) {
-		System.out.print("휴대폰 번호: ");
+		System.out.println("휴대폰 번호");
+		System.out.print("휴대폰 번호 입력: ");
 		phoneNumber = sc.nextLine();
+		System.out.println("======================================");
 		return phoneNumber;
 	}
-	
-	public String getStudentID(Scanner sc) {
-		System.out.print("학번: ");
-		studentID = sc.nextLine();
-		return studentID;
+	// 주민등록번호 입력받기
+	public String getResidentNumber(Scanner sc) {
+		System.out.println("주민등록번호 앞 7자리");
+		System.out.println("생년월일 - 0******");
+		System.out.print(">> ");
+		residentNumber = sc.nextLine();
+		System.out.println("------------------------------------");
+		return residentNumber;
 	}
-	
-	public UserType getUserType(Scanner sc) {
-		System.out.print("대학생이면 0, 대학원생이면 1 입력: ");
-		
-		while(true) {
-			int input = sc.nextInt();
-			sc.nextLine();
-			if (input == 0) {
-				this.userType = UserType.COLLEGE;
-				return userType;
-			}
-			else if (input == 1) {
-				this.userType = UserType.GRADUATE;
-				return userType;
-			}
-			else {
-				System.out.println("잘못된 입력입니다.\n");
-			}
-		}
-	}
-	
-	public String getMajor(Scanner sc) {
-		System.out.print("전공: ");
-		major = sc.nextLine();
-		return major;
-	}
-	
+	// 사용자 이름 입력받기
 	public String getNickname(Scanner sc) {
-		System.out.print("닉네임: ");
+		System.out.println("이름");
+		System.out.print("이름 입력: ");
 		nickname = sc.nextLine();
+		System.out.println("------------------------------------");
 		return nickname;
 	}
-	
+	// 은행계좌 입력받기
 	public String getBankAccount(Scanner sc) {
-		System.out.println("계좌 입력");
-		System.out.println("인증서 발급을 위해 보유하신 계좌로 1원 이체를 진행합니다");
 		System.out.print("계좌번호: ");
 		bankAccount = sc.nextLine();
 		System.out.println("------------------------------------");
 		return bankAccount;
 	}
-	
+	// 은행 입력받기
 	public BankType getBankType(Scanner sc) {
-		int option;
+		int option = 0;
+		boolean validInput = false;
 		
 		System.out.println("은행 선택");
 		System.out.println("1. 농협");
@@ -126,9 +69,24 @@ public class Register {
 		System.out.println("4. 새마을 금고");
 		System.out.println("5. 제일은행");
 		System.out.println("6. 카카오뱅크");
-		System.out.print(">> ");
-		option = sc.nextInt();
-		sc.nextLine();
+		// 유효한 범위의 은행 선택 -> 루프 해제
+		while(!validInput) {
+			try {
+				System.out.print(">> ");
+				option = sc.nextInt();
+				sc.nextLine();
+				
+				if (option >= 1 && option <= 6) {
+					validInput = true;
+				}
+				else
+					System.out.println("잘못된 입력입니다.");
+				
+			} catch (InputMismatchException e) {
+				System.out.println("잘못된 입력입니다.");
+			}
+		}
+		System.out.println("=======================================");
 		
 		switch(option) {
 		case 1:
@@ -152,21 +110,38 @@ public class Register {
 		}
 		return bankType;
 	}
-	
+	// 학교 입력
+	public String getSchoolName(Scanner sc) {
+		System.out.print("학교: ");
+		schoolName = sc.nextLine();
+		System.out.println("------------------------------------");
+		return schoolName;
+	}
+	// 거주지역 입력
+	public String getAddress(Scanner sc) {
+		System.out.print("거주지역: ");
+		address = sc.nextLine();
+		System.out.println("======================================");
+		return address;
+	}
+	// 회원가입창
 	public void getRegister(Scanner sc) {
-		System.out.println("회원가입을 시작합니다.");
-		getID(sc);
-		getPassword(sc);
-		confirmPassword(sc);
-		getEmail(sc);
-		getPhoneNumber(sc);
-		getUserType(sc);
-		getMajor(sc);
+		System.out.println("휴대폰 본인인증");
+		System.out.println("회원여부 확인 및 가입을 진행합니다");
+		System.out.println();
+		
 		getNickname(sc);
-		System.out.println("회원가입이 완료되었습니다.");
-		System.out.println("==================================");
+		getResidentNumber(sc);
+		getPhoneNumber(sc);
+		
+		System.out.println("계좌 입력");
+		System.out.println("인증서 발급을 위해 보유하신 계좌로 1원 이체를 진행합니다");
 		
 		getBankAccount(sc);
 		getBankType(sc);
+		
+		System.out.println("추가정보");
+		getSchoolName(sc);
+		getAddress(sc);
 	}
 }

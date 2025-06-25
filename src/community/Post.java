@@ -5,42 +5,42 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import account.LogIn;
-import account.Register.UserType;
+import account.Register;
 
 public class Post {
-	LogIn user;
-	List <String> postContent;
-	List <String> comments;
-	String nickname;
-	String major;
-	UserType userType;
-	LocalDateTime dateTime;
+	Register user;  // 사용자 정보 나타냄
+	List <String> postContent;  // 포스트 내용
+	List <String> comments;  // 한 포스트 내의 댓글들
+	String nickname;  // 포스트 작성자 이름
+	String schoolName;  // 포스트 작성자 학교
+	String address; // 포스트 작성자 거주지역
+	LocalDateTime dateTime;  // 포스트 작성 날짜 및 시간
 	
-	private boolean isUploaded = false;
-	private boolean isMyPost;
+	private boolean isUploaded = false;  // 포스트 내용 작성 -> 포스트 올리기 -> true값으로 변환 -> 커뮤니티에 내가 작성한 포스트 뜸
+	private boolean isMyPost; // 나의 포스트 <-> 다른 사람들의 포스트 분리
 	
 	// 나 외에 다른 사용자들의 포스트, 내용 지정
-	public Post(List <String> postContent, String nickname, UserType userType, String major) {
+	public Post(List <String> postContent, String nickname, String schoolName, String address) {
 		this.comments = new ArrayList<>();
 		this.postContent = postContent;
 		this.nickname = nickname;
-		this.userType = userType;
-		this.major = major;
-		this.dateTime = LocalDateTime.now();
+		this.schoolName = schoolName;
+		this.address = address;
+		this.dateTime = LocalDateTime.now(); 
 		this.isUploaded = true;
 		this.isMyPost = false;
 	}
 	// 나의 포스트
-	public Post(LogIn user) {
+	public Post(Register user) {
 		this.user = user;
 		this.postContent = new ArrayList<>();
 		this.comments = new ArrayList<>();
 		this.nickname = user.nickname;
-		this.major = user.major;
-		this.userType = user.userType;
+		this.schoolName = user.schoolName;
+		this.address = user.address;
 		this.isMyPost = true;
 	}
+	
 	// 나의 포스트 작성하기
 	public void setMyPostContent(Scanner sc) {
 		System.out.println("포스트를 작성합니다. (빈 줄 입력 시 종료)");
@@ -50,7 +50,7 @@ public class Post {
 			postContent.add(line);
 		}
 	}
-	
+	// 포스트 작성 후 업로드 -> 취소할 경우 업로드 x / 내용 삭제 
 	public boolean uploadMyPost(Scanner sc) {
 		String yesOrNo;
 		
@@ -74,19 +74,19 @@ public class Post {
 				System.out.println("잘못된 입력입니다.");
 		}
 	}
-	
+	// 포스트 보여주기 
 	public void showPost() {
-		System.out.println(showInfo());
+		System.out.println(showInfo());  // 작성자 정보
 		for (String pc : postContent) {
-			System.out.println(pc);
+			System.out.println(pc);  // 포스트 내용
 		}
-		showComments();
+		showComments();  // 포스트에 달린 댓글
 	}
-	
+	// 내가 쓴 댓글 추가
 	public void addComment(String comment) {
 		comments.add(comment);
 	}
-	
+	// 댓글 보여주기 
 	public void showComments() {
 		if (comments.isEmpty()) return;
 		else {
@@ -96,17 +96,11 @@ public class Post {
 			}
 		}
 	}
-	
+	// 포스트 작성자 정보 나타내기
 	public String showInfo() {
-		switch (userType) {
-		case COLLEGE:
-			return this.nickname + " | 대학생 | " + this.major + " | " + dateTime;
-		case GRADUATE: 
-			return this.nickname + " | 대학원생 | " + this.major + " | " + dateTime;
-		}
-		return null;
+		return this.nickname + " | " + this.schoolName + " | " + this.address + dateTime;
 	}
-	
+	// 나의 포스트 <-> 다른 사람들의 포스트 분리
 	public boolean getIsMyPost() {
 		return isMyPost;
 	}

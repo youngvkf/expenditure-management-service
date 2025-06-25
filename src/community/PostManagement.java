@@ -5,12 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-import account.LogIn;
-import account.Register.UserType;
+import account.Register;
 
 public class PostManagement {
 	List <Post> postList; 
-	LogIn user;
+	Register user;
 	
 	public PostManagement() {
 		postList = new ArrayList<>();
@@ -21,14 +20,14 @@ public class PostManagement {
 		List<String> c4 = Arrays.asList("에어컨 하루에 10시간 틀면", "전기세 한 달에 얼마 나오나요?");
 		List<String> c5 = Arrays.asList("중고책 팔아요", "이산수학, 기초논리설계 책 있습니다!!", "반값에 쿨거래 ㅂㅌ합니다");
 		
-		postList.add(new Post(c1, "거지의마지막단말마", UserType.COLLEGE, "심리학과"));
-		postList.add(new Post(c2, "벌레무서워함", UserType.GRADUATE, "사이버보안학과"));
-		postList.add(new Post(c3, "고슬밥아니면밥상엎음", UserType.GRADUATE, "독어독문학과"));
-		postList.add(new Post(c4, "혠", UserType.COLLEGE, "사회학과"));
-		postList.add(new Post(c5, "유성", UserType.COLLEGE, "컴퓨터공학과"));
+		postList.add(new Post(c1, "거지의마지막단말마", "이화여자대학교", "서대문구"));
+		postList.add(new Post(c2, "벌레무서워함", "서강대학교", "마포구"));
+		postList.add(new Post(c3, "고슬밥아니면밥상엎음", "역앞대학교", "종로구"));
+		postList.add(new Post(c4, "혠", "이화여자대학교", "송파구"));
+		postList.add(new Post(c5, "유성", "집앞대학교", "부산진구"));
 	}
-	
-	public void setUser(LogIn user) {
+	// 가입 및 로그인한 user 객체(main에서 생성) 가져오기
+	public void setUser(Register user) {
 		this.user = user;
 	}
 	
