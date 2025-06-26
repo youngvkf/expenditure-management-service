@@ -22,6 +22,8 @@ public class SubscriptionManagement {
 	}
 	
 	public void showSubscriptionScreen(Scanner sc) {
+		System.out.println("현재 구독 중인 서비스");
+		System.out.println();
 		showSubscriptionList();
 		paymentReminder();
 		int option;

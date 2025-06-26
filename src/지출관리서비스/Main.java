@@ -23,6 +23,8 @@ public class Main {
 		int option = 0;
 		boolean validInput = false;
 		
+		System.out.println("UNIPLAN");
+		System.out.println("============================================");
 		System.out.println("1. 홈 화면");
 		System.out.println("2. 맞춤혜택서비스 화면");
 		System.out.println("3. 커뮤니티 화면");
