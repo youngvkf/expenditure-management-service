@@ -11,6 +11,25 @@ public class Register {
 	public String schoolName; // 학교 이름
 	public String address; // 거주지역
 	private BankType bankType; // 은행
+	
+	public int age;
+	public String major;
+	public UserType userType;
+	
+	public enum UserType{
+		COLLEGE("대학생"), GRADUATE("대학원생"), UNKNOWN("미정");
+		
+		private final String displayName;
+		
+		UserType(String displayName){
+			this.displayName = displayName;
+		}
+		
+		public static String getDisplayName(UserType userType) {
+			return userType.displayName;
+		}
+	}
+	
 	// 은행
 	public enum BankType {
 		NH("농협은행"), IBK("기업은행"), KB("국민은행"), MG("새마을금고"), SC("제일은행"), KAKAO("카카오뱅크");
@@ -84,6 +103,7 @@ public class Register {
 				
 			} catch (InputMismatchException e) {
 				System.out.println("잘못된 입력입니다.");
+				sc.nextLine();
 			}
 		}
 		System.out.println("=======================================");

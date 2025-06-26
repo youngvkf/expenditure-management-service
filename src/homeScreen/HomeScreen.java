@@ -1,6 +1,5 @@
 package homeScreen;
 
-import java.time.LocalDate;
 import java.util.Scanner;
 
 public class HomeScreen {
@@ -22,11 +21,13 @@ public class HomeScreen {
 			System.out.println("1. 지출 관리");
 			System.out.println("2. 구독 서비스 관리");
 			System.out.println("3. 목표 관리");
+			System.out.println("0. 뒤로 가기");
 			
 			System.out.print("원하는 옵션 번호 입력 >> ");
 			int option = sc.nextInt();
 			sc.nextLine();
 			System.out.println();
+			
 			
 			switch (option) {
 			case 1: 
@@ -38,7 +39,11 @@ public class HomeScreen {
 			case 3:
 				gManagement.showGoalScreen(sc);  // 목표관리서비스로 이동 (홈 화면 내)
 				break;
-			} 
+			case 0:
+				return;
+			default: 
+				System.out.println("잘못된 입력입니다.");
+			}
 		}
 		
 	}

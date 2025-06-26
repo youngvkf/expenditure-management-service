@@ -94,7 +94,7 @@ public class ExpenditureManagement {
 			showExpenditureForCategory(c);
 		}
 	}
-	// 해당 카테고리의 지출 보여줌
+	// 해당 카테고리별로 지출 보여줌
 	public void showExpenditureForCategory(Category category) {
 		System.out.println("[ " + Category.getDisplayName(category) + " ]");
 		
@@ -106,7 +106,6 @@ public class ExpenditureManagement {
 				}
 			}
 		}
-		System.out.println("--------------------------------------------");
 	}
 	// 순자산
 	public void showTotalProperty() {

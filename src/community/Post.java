@@ -98,7 +98,7 @@ public class Post {
 	}
 	// 포스트 작성자 정보 나타내기
 	public String showInfo() {
-		return this.nickname + " | " + this.schoolName + " | " + this.address + dateTime;
+		return this.nickname + " | " + this.schoolName + " | " + this.address + " | " + dateTime;
 	}
 	// 나의 포스트 <-> 다른 사람들의 포스트 분리
 	public boolean getIsMyPost() {

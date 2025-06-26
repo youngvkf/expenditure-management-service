@@ -16,7 +16,7 @@ public class PostManagement {
 		
 		List<String> c1 = Arrays.asList("아현역 사는데", "대패 삼겹살 공구하실 분?");
 		List<String> c2 = Arrays.asList("창천동 삽니다", "바퀴벌레 잡아주실 분 구해요", "진짜급함");
-		List<String> c3 = Arrays.asList("청년 월세 지원금 신청 기간 언제까지인가요??");
+		List<String> c3 = Arrays.asList("청년 월세 지원금 신청 기간 언제까지인가요??", "제곧내");
 		List<String> c4 = Arrays.asList("에어컨 하루에 10시간 틀면", "전기세 한 달에 얼마 나오나요?");
 		List<String> c5 = Arrays.asList("중고책 팔아요", "이산수학, 기초논리설계 책 있습니다!!", "반값에 쿨거래 ㅂㅌ합니다");
 		
@@ -39,7 +39,7 @@ public class PostManagement {
 			System.out.println("1. 포스트 작성하기");
 			System.out.println("2. 포스트 삭제하기");
 			System.out.println("3. 댓글 달기");
-			System.out.println("4. 홈화면으로 돌아가기\n");
+			System.out.println("0. 뒤로 가기\n");
 			System.out.print("메뉴를 선택하세요: ");
 			option = sc.nextInt();
 			sc.nextLine();
@@ -57,11 +57,10 @@ public class PostManagement {
 			case 3:
 				uploadComment(sc);
 				break;
-			case 4:
+			case 0:
 				System.out.println("===========================");
 				return;
 			}
-			
 			showAllPosts();
 		}
 	}
@@ -79,9 +78,9 @@ public class PostManagement {
 		for (int i = postList.size() - 1; i >= 0; i--) {
 			if (postList.get(i).getIsMyPost()) {
 				postList.remove(i);
-				System.out.println("내 포스트를 삭제했습니다.");
 			}
 		}
+		System.out.println("내 포스트를 삭제했습니다.");
 	}
 	
 	public void uploadComment(Scanner sc) {

@@ -46,6 +46,6 @@ public class Subscription {
 	}
 	
 	public String showInfo() {
-		return ottName + " | 결제 금액: " + price + "원 | 결제예정일: " + nextPaymentDate.getMonth() + "월 " + dayOfMonth + "일";
+		return ottName + " | 결제 금액: " + price + "원 | 결제예정일: " + nextPaymentDate.getMonth() + dayOfMonth;
 	}
 }
